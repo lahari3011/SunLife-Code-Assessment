@@ -1,0 +1,47 @@
+<template>
+    <lightning-card title="Financial Services Account Listing" icon-name="standard:account">
+        <div if:true={errorMsg} style="margin-left: 3%;">
+            <p style="color: red;">{errorMsg}</p>
+        </div>
+
+        <lightning-layout multiple-rows="true" vertical-align="end">
+            <lightning-layout-item size="12" small-device-size="10" medium-device-size="8" large-device-size="6" padding="around-small">
+                    <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                    <lightning-input type="text" 
+                                                        label="Enter Account Name" 
+                                                        onchange={handleAccountName} ></lightning-input>
+                            </div>
+                        </div> 
+            </lightning-layout-item>
+            <lightning-layout-item size="12" small-device-size="2" medium-device-size="2" large-device-size="2" padding="around-small">
+                    <lightning-button label="Search" 
+                                        variant="brand" 
+                                        onclick={handleSearch}></lightning-button>
+                </lightning-layout-item>
+        </lightning-layout><br/>
+
+        <div class="slds-m-around_medium">
+            <template if:true={data} >
+                <lightning-datatable
+                    key-field="Id"
+                    data={data}
+                    columns={columns}
+                    sorted-by= {sortBy}
+                    sorted-direction= {sortDirection}
+                    onsort={handleSortdata}
+                    hide-checkbox-column="true"
+                    onrowaction={viewRecord}
+                    onheaderaction={navigateToAccountPage}>
+                 </lightning-datatable> 
+            </template>
+        </div>
+          
+       <!--<div class="slds-box slds-theme_shade">  
+            <template for:each={data} for:item="account">
+                <lightning-button key={account.Id} variant="base" label={account.Name} title="View Account" onclick={navigateToAccountPage} value={account.Id}></lightning-button>
+            </template> 
+        </div> -->
+            
+    </lightning-card>
+</template>
